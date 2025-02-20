@@ -87,18 +87,6 @@ public class ModVillages
 
     private static final Int2ObjectMap<VillagerTrades.ItemListing[]> CLIMATOLOGIST_TRADES = toIntMap(ImmutableMap.of(1, CLIMATOLOGIST_LEVEL_1_TRADES, 2, CLIMATOLOGIST_LEVEL_2_TRADES, 3, CLIMATOLOGIST_LEVEL_3_TRADES, 4, CLIMATOLOGIST_LEVEL_4_TRADES, 5, CLIMATOLOGIST_LEVEL_5_TRADES));
 
-    public static void addVillagerTrades(VillagerTradesEvent event)
-    {
-        if (event.getProfession() == TANVillagerProfessions.CLIMATOLOGIST)
-        {
-            for (int level = 1; level <= 5; level++)
-            {
-                for (VillagerTrades.ItemListing trade : CLIMATOLOGIST_TRADES.get(level))
-                {
-                    if (event.getLevel() == level)
-                    {
-                        event.getTrades().add(trade);
-                    }
                 }
             }
         }
@@ -119,11 +107,6 @@ public class ModVillages
             new ItemsForEmeralds(TANItems.CHORUS_FRUIT_JUICE, 5, 1, 1, 1),
             new ItemsForEmeralds(TANItems.PURIFIED_WATER_BOTTLE, 4, 1, 2, 1)};
 
-    public static void addWanderingVillagerTrades(WandererTradesEvent event)
-    {
-        event.addGenericTrades(Arrays.stream(WANDERING_TRADER_GENERIC).toList());
-        event.addRareTrades(Arrays.stream(WANDERING_TRADER_RARE).toList());
-    }
 
     public static void addBuildings(RegistryAccess registryAccess)
     {
