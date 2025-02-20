@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "toughasnails:item/leaf_chestplate",
-    "layer1": "toughasnails:item/leaf_chestplate_overlay"
-  }
-}
