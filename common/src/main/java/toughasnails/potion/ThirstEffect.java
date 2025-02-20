@@ -9,6 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 
 public class ThirstEffect extends MobEffect
 {
@@ -23,6 +25,7 @@ public class ThirstEffect extends MobEffect
         if (entity instanceof Player)
         {
             Player player = (Player)entity;
+            IThirst thirst = ThirstHelper.getThirst(player);
             thirst.addExhaustion(0.025F * (float)(amplifier + 1));
         }
 

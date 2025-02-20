@@ -25,8 +25,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import toughasnails.api.item.TANItems;
 import toughasnails.api.player.ITANPlayer;
 import toughasnails.api.temperature.ITemperature;
+import toughasnails.api.thirst.IThirst;
 import toughasnails.temperature.TemperatureData;
 import toughasnails.temperature.TemperatureHandler;
+import toughasnails.thirst.ThirstData;
+import toughasnails.thirst.ThirstHandler;
+import toughasnails.thirst.ThirstHooks;
 
 @Mixin(Player.class)
 public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
@@ -38,6 +42,7 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
     @Unique
     private TemperatureData temperatureData = new TemperatureData();
     @Unique
+    private ThirstData thirstData = new ThirstData();
     @Unique
     private boolean climateClemencyGranted = false;
 
@@ -70,6 +75,7 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
         {
             if (!this.level().isClientSide)
             {
+                ThirstHooks.onCauseFoodExhaustion((Player)(Object)this, exhaustion);
             }
         }
     }
@@ -79,6 +85,7 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
     {
         Player player = (Player)(Object)this;
         TemperatureHandler.onPlayerTick(player);
+        ThirstHandler.onPlayerTick(player);
     }
 
     @Override
@@ -88,6 +95,7 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
     }
 
     @Override
+    public IThirst getThirstData()
     {
         return this.thirstData;
     }

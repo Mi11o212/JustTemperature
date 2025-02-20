@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import toughasnails.api.item.TANItems;
+import toughasnails.api.thirst.ThirstHelper;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -54,6 +55,7 @@ public class FilledCanteenItem extends EmptyCanteenItem
             return result;
         }
 
+        if (ThirstHelper.canDrink(player, this.canAlwaysDrink()))
         {
             return ItemUtils.startUsingInstantly(level, player, hand);
         }

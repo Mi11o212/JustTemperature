@@ -6,6 +6,8 @@ package toughasnails.network;
 
 import glitchcore.network.CustomPacket;
 import net.minecraft.network.FriendlyByteBuf;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 
 public class UpdateThirstPacket implements CustomPacket<UpdateThirstPacket>
 {
@@ -40,6 +42,7 @@ public class UpdateThirstPacket implements CustomPacket<UpdateThirstPacket>
             return;
 
         context.getPlayer().ifPresent(player -> {
+            IThirst thirst = ThirstHelper.getThirst(player);
 
             thirst.setThirst(packet.thirstLevel);
             thirst.setHydration(packet.hydrationLevel);

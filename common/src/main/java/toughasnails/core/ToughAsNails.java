@@ -19,6 +19,8 @@ import toughasnails.client.handler.TooltipHandler;
 import toughasnails.init.*;
 import toughasnails.temperature.TemperatureHandler;
 import toughasnails.temperature.TemperatureOverlayRenderer;
+import toughasnails.thirst.ThirstHandler;
+import toughasnails.thirst.ThirstOverlayRenderer;
 
 public class ToughAsNails
 {
@@ -71,6 +73,10 @@ public class ToughAsNails
         EventManager.addListener(TemperatureHandler::onItemUseFinish);
 
         // Thirst handlers
+        EventManager.addListener(ThirstHandler::onChangeDimension);
+        EventManager.addListener(ThirstHandler::onItemUseFinish);
+        EventManager.addListener(ThirstHandler::onPlayerUseItem);
+        EventManager.addListener(ThirstHandler::onUseBlock);
 
         // Misc handlers
         EventManager.addListener(ModVillages::addVillagerTrades);
@@ -93,6 +99,8 @@ public class ToughAsNails
         // Thirst
         EventManager.addListener(ThirstOverlayRenderer::onClientTick);
         EventManager.addListener(ThirstOverlayRenderer::onBeginRenderAir);
+        EventManager.addListener(ThirstHandler::onUseEmpty);
+        EventManager.addListener(ThirstHandler::onClientTick);
 
         // Coloring
         EventManager.addListener(ModClient::registerBlockColors);

@@ -22,10 +22,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import toughasnails.api.player.ITANPlayer;
 import toughasnails.api.temperature.ITemperature;
 import toughasnails.api.temperature.TemperatureHelper;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 import toughasnails.init.ModConfig;
 import toughasnails.temperature.TemperatureHandler;
 
 import static toughasnails.temperature.TemperatureHandler.syncTemperature;
+import static toughasnails.thirst.ThirstHandler.syncThirst;
 
 @Mixin(ServerPlayer.class)
 public abstract class MixinServerPlayer extends Player implements ITANPlayer
@@ -40,6 +43,7 @@ public abstract class MixinServerPlayer extends Player implements ITANPlayer
     {
         ServerPlayer player = (ServerPlayer)(Player)this;
         ITemperature data = TemperatureHelper.getTemperatureData(player);
+        IThirst thirst = ThirstHelper.getThirst(player);
 
         // Update the temperature if it has changed
         if (data.getLastLevel() != data.getLevel() || data.getLastHyperthermiaTicks() != data.getHyperthermiaTicks() || !data.getLastNearbyThermoregulators().equals(data.getNearbyThermoregulators()))

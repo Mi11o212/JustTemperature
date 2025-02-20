@@ -2,6 +2,7 @@
  * Copyright 2021, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.thirst;
 
 import glitchcore.event.TickEvent;
 import glitchcore.event.entity.LivingEntityUseItemEvent;
@@ -37,6 +38,8 @@ import toughasnails.api.item.TANItems;
 import toughasnails.api.potion.TANEffects;
 import toughasnails.api.temperature.ITemperature;
 import toughasnails.api.temperature.TemperatureHelper;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 import toughasnails.core.ToughAsNails;
 import toughasnails.init.ModConfig;
 import toughasnails.init.ModPackets;
@@ -45,12 +48,16 @@ import toughasnails.network.DrinkInWorldPacket;
 import toughasnails.network.UpdateThirstPacket;
 import toughasnails.temperature.TemperatureData;
 
+public class ThirstHandler
 {
     public static void onPlayerTick(Player player)
     {
+        if (!ModConfig.thirst.enableThirst || player.level().isClientSide())
             return;
 
+        IThirst thirst = ThirstHelper.getThirst(player);
         Difficulty difficulty = player.level().getDifficulty();
+        double exhaustionThreshold = ModConfig.thirst.thirstExhaustionThreshold;
 
         if (thirst.getExhaustion() > exhaustionThreshold)
         {
@@ -107,6 +114,7 @@ import toughasnails.temperature.TemperatureData;
 
     public static void syncThirst(ServerPlayer player)
     {
+        IThirst thirst = ThirstHelper.getThirst(player);
         ModPackets.HANDLER.sendToPlayer(new UpdateThirstPacket(thirst.getThirst(), thirst.getHydration()), player);
         thirst.setLastThirst(thirst.getThirst());
         thirst.setLastHydrationZero(thirst.getHydration() == 0.0F);
@@ -115,10 +123,12 @@ import toughasnails.temperature.TemperatureData;
     // Replenish thirst after drinking from items in the config file
     public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event)
     {
+        if (!ModConfig.thirst.enableThirst || !(event.getEntity() instanceof Player) || event.getEntity().level().isClientSide())
             return;
 
         Player player = (Player)event.getEntity();
         ItemStack drink = event.getItem();
+        IThirst thirst = ThirstHelper.getThirst(player);
 
         if (drink.is(ModTags.Items.DRINKS))
         {
@@ -234,10 +244,12 @@ import toughasnails.temperature.TemperatureData;
 
     private static boolean canHandDrink()
     {
+        return ModConfig.thirst.enableThirst && ModConfig.thirst.enableHandDrinking;
     }
 
     private static boolean canHandDrinkInWorld(Player player, InteractionHand hand)
     {
+        return InteractionHand.MAIN_HAND == hand && player.getMainHandItem().isEmpty() && player.isCrouching() && ThirstHelper.getThirst(player).getThirst() < 20 && player.level().isClientSide() && inWorldDrinkTimer <= 0;
     }
 
     private static void tryDrinkWaterInWorld(Player player)
@@ -249,6 +261,7 @@ import toughasnails.temperature.TemperatureData;
         {
             BlockPos pos = ((BlockHitResult) rayTraceResult).getBlockPos();
 
+            if (ThirstHelper.canDrink(player, false) && world.mayInteract(player, pos) && world.getFluidState(pos).is(FluidTags.WATER))
             {
                 inWorldDrinkTimer = IN_WORLD_DRINK_COOLDOWN;
                 ModPackets.HANDLER.sendToServer(new DrinkInWorldPacket(pos));

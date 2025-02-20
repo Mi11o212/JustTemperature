@@ -2,10 +2,13 @@
  * Copyright 2021, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.thirst;
 
 import net.minecraft.nbt.CompoundTag;
+import toughasnails.api.thirst.IThirst;
 import toughasnails.init.ModConfig;
 
+public class ThirstData implements IThirst
 {
     public static final int DEFAULT_THIRST = 20;
     public static final float DEFAULT_HYDRATION = 2.0F;
@@ -19,6 +22,7 @@ import toughasnails.init.ModConfig;
 
     public void addAdditionalSaveData(CompoundTag nbt)
     {
+        if (ModConfig.thirst.enableThirst)
         {
             nbt.putInt("thirstLevel", this.getThirst());
             nbt.putInt("thirstTickTimer", this.getTickTimer());
@@ -28,7 +32,9 @@ import toughasnails.init.ModConfig;
         else
         {
             // Save default values
+            nbt.putInt("thirstLevel", ThirstData.DEFAULT_THIRST);
             nbt.putInt("thirstTickTimer", 0);
+            nbt.putFloat("thirstHydrationLevel", ThirstData.DEFAULT_HYDRATION);
             nbt.putFloat("thirstExhaustionLevel", 0.0F);
         }
     }
@@ -37,6 +43,7 @@ import toughasnails.init.ModConfig;
     {
         if (nbt.contains("thirstLevel", 99))
         {
+            if (ModConfig.thirst.enableThirst)
             {
                 this.setThirst(nbt.getInt("thirstLevel"));
                 this.setTickTimer(nbt.getInt("thirstTickTimer"));
@@ -46,7 +53,9 @@ import toughasnails.init.ModConfig;
             else
             {
                 // Use default values if thirst is disabled
+                this.setThirst(ThirstData.DEFAULT_THIRST);
                 this.setTickTimer(0);
+                this.setHydration(ThirstData.DEFAULT_HYDRATION);
                 this.setExhaustion(0.0F);
             }
         }

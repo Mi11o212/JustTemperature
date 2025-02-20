@@ -2,11 +2,14 @@
  * Copyright 2023, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.thirst;
 
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
+import toughasnails.api.thirst.ThirstHelper;
 import toughasnails.init.ModConfig;
 
+public class ThirstHooksClient
 {
     public static void onAiStepSetSprinting(LocalPlayer player, boolean sprinting)
     {
@@ -19,5 +22,6 @@ import toughasnails.init.ModConfig;
 
     private static boolean canSprintWithThirst(LocalPlayer player)
     {
+        return !ModConfig.thirst.thirstPreventSprint || ThirstHelper.getThirst(player).getThirst() > 6 || player.getAbilities().mayfly;
     }
 }

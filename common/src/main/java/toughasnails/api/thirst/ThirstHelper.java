@@ -2,15 +2,18 @@
  * Copyright 2021, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.api.thirst;
 
 import net.minecraft.world.entity.player.Player;
 
+public class ThirstHelper
 {
     /**
      * Obtains the thirst data for a player.
      * @param player the player to obtain thirst data for
      * @return the player's thirst data
      */
+    public static IThirst getThirst(Player player)
     {
         return Impl.INSTANCE.getThirst(player);
     }
@@ -38,8 +41,11 @@ import net.minecraft.world.entity.player.Player;
     /** Internal implementation details */
     public static class Impl
     {
+        public static IThirstHelper INSTANCE = null;
 
+        public interface IThirstHelper
         {
+            IThirst getThirst(Player player);
             boolean canDrink(Player player, boolean ignoreThirst);
             boolean isThirstEnabled();
         }

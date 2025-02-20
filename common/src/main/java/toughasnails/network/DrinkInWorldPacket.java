@@ -15,6 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import toughasnails.api.potion.TANEffects;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 import toughasnails.init.ModConfig;
 import toughasnails.init.ModTags;
 
@@ -46,10 +48,12 @@ public class DrinkInWorldPacket implements CustomPacket<DrinkInWorldPacket>
     {
         context.getPlayer().ifPresent(player -> {
             Level level = player.level();
+            IThirst thirst = ThirstHelper.getThirst(player);
 
             // Whilst we already checked on the client, check again to be sure
             if (level.mayInteract(player, packet.pos) && level.getFluidState(packet.pos).is(FluidTags.WATER))
             {
+                thirst.drink(ModConfig.thirst.handDrinkingThirst, (float)ModConfig.thirst.handDrinkingHydration);
 
                 Holder<Biome> biome = level.getBiome(packet.pos);
 

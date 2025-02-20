@@ -10,6 +10,7 @@ import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import toughasnails.api.TANAPI;
+import toughasnails.api.thirst.WaterType;
 import toughasnails.core.ToughAsNails;
 
 public class ModTags

@@ -2,7 +2,9 @@
  * Copyright 2021, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.api.thirst;
 
+public interface IThirst
 {
     /**
      * Get the level of thirst ranging from 0 to 20.

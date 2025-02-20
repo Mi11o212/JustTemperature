@@ -2,6 +2,7 @@
  * Copyright 2023, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.thirst;
 
 import glitchcore.event.TickEvent;
 import glitchcore.event.client.RenderGuiEvent;
@@ -13,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import toughasnails.api.potion.TANEffects;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
 import toughasnails.init.ModConfig;
 
 import java.util.Random;
@@ -36,6 +39,7 @@ public class ThirstOverlayRenderer
 
     public static void onBeginRenderAir(RenderGuiEvent.Pre event)
     {
+        if (event.getType() != RenderGuiEvent.Type.AIR || !ModConfig.thirst.enableThirst)
             return;
 
         Minecraft minecraft = Minecraft.getInstance();
@@ -45,6 +49,7 @@ public class ThirstOverlayRenderer
         {
             GuiUtils.setupOverlayRenderState(true, false);
             Player player = minecraft.player;
+            IThirst thirst = ThirstHelper.getThirst(player);
 
             // When the update counter isn't incrementing, ensure the same numbers are produced (freezes moving gui elements)
             RANDOM.setSeed(updateCounter * 312871L);

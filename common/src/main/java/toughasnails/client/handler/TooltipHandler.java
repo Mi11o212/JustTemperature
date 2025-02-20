@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import toughasnails.init.ModConfig;
 import toughasnails.init.ModTags;
+import toughasnails.thirst.ThirstOverlayRenderer;
 
 import java.util.Optional;
 
@@ -95,6 +96,7 @@ public class TooltipHandler
         ItemStack stack = event.getStack();
 
         // Don't display thirst tooltips if thirst is disabled
+        if (!ModConfig.thirst.enableThirst)
             return;
 
         if (stack.is(ModTags.Items.DRINKS))

@@ -2,6 +2,7 @@
  * Copyright 2021, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
+package toughasnails.api.thirst;
 
 public enum WaterType
 {
