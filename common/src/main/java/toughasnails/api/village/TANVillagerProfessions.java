@@ -1,9 +1,12 @@
-/******************************************************************************* 
+/*******************************************************************************
  * Copyright 2024, the Glitchfiend Team.
  * All rights reserved.
  ******************************************************************************/
 package toughasnails.api.village;
 
-public class TANVillagerProfessions {
-    // Villager professions have been removed
+import net.minecraft.world.entity.npc.VillagerProfession;
+
+public class TANVillagerProfessions
+{
+    public static VillagerProfession CLIMATOLOGIST;
 }
