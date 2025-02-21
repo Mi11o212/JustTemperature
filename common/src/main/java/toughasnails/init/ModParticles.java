@@ -17,9 +17,9 @@ public class ModParticles
 {
     public static void registerParticles(BiConsumer<ResourceLocation, ParticleType<?>> func)
     {
-        TANParticles.THERMOREGULATOR_COOL = register(func, "thermoregulator_cool", new SimpleParticleType(false));
-        TANParticles.THERMOREGULATOR_WARM = register(func, "thermoregulator_warm", new SimpleParticleType(false));
-        TANParticles.THERMOREGULATOR_NEUTRAL = register(func, "thermoregulator_neutral", new SimpleParticleType(false));
+        // TANParticles.THERMOREGULATOR_COOL = register(func, "thermoregulator_cool", new SimpleParticleType(false));
+        // TANParticles.THERMOREGULATOR_WARM = register(func, "thermoregulator_warm", new SimpleParticleType(false));
+        // TANParticles.THERMOREGULATOR_NEUTRAL = register(func, "thermoregulator_neutral", new SimpleParticleType(false));
     }
 
     private static <T extends ParticleType<? extends ParticleOptions>> T register(BiConsumer<ResourceLocation, ParticleType<?>> func, String name, T particle)

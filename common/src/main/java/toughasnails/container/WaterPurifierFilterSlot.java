@@ -1,26 +1,26 @@
-/*******************************************************************************
- * Copyright 2021, the Glitchfiend Team.
- * All rights reserved.
- ******************************************************************************/
-package toughasnails.container;
+// /*******************************************************************************
+//  * Copyright 2021, the Glitchfiend Team.
+//  * All rights reserved.
+//  ******************************************************************************/
+// package toughasnails.container;
 
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
+// import net.minecraft.world.Container;
+// import net.minecraft.world.inventory.Slot;
+// import net.minecraft.world.item.ItemStack;
 
-public class WaterPurifierFilterSlot extends Slot
-{
-    private final WaterPurifierMenu menu;
+// public class WaterPurifierFilterSlot extends Slot
+// {
+//     private final WaterPurifierMenu menu;
 
-    public WaterPurifierFilterSlot(WaterPurifierMenu container, Container inventory, int index, int xPosition, int yPosition)
-    {
-        super(inventory, index, xPosition, yPosition);
-        this.menu = container;
-    }
+//     public WaterPurifierFilterSlot(WaterPurifierMenu container, Container inventory, int index, int xPosition, int yPosition)
+//     {
+//         super(inventory, index, xPosition, yPosition);
+//         this.menu = container;
+//     }
 
-    @Override
-    public boolean mayPlace(ItemStack stack)
-    {
-        return this.menu.isFilter(stack);
-    }
-}
+//     @Override
+//     public boolean mayPlace(ItemStack stack)
+//     {
+//         return this.menu.isFilter(stack);
+//     }
+// }

@@ -8,8 +8,6 @@ import net.minecraft.world.level.block.Block;
 
 public class TANBlocks
 {
-    public static Block THERMOREGULATOR;
+    //apublic static Block THERMOREGULATOR;
     public static Block TEMPERATURE_GAUGE;
-    public static Block RAIN_COLLECTOR;
-    public static Block WATER_PURIFIER;
 }

@@ -9,7 +9,6 @@ import net.minecraft.world.effect.MobEffect;
 
 public class TANEffects
 {
-    public static Holder<MobEffect> THIRST;
     public static Holder<MobEffect> ICE_RESISTANCE;
     public static Holder<MobEffect> CLIMATE_CLEMENCY;
     public static Holder<MobEffect> INTERNAL_WARMTH;

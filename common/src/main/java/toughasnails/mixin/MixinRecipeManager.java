@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import toughasnails.crafting.WaterPurifierRecipe;
+//import toughasnails.crafting.WaterPurifierRecipe;
 import toughasnails.init.ModRecipePropertySets;
 
 import java.util.Map;
@@ -30,6 +30,6 @@ public class MixinRecipeManager
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void onInit(CallbackInfo ci)
     {
-        RECIPE_PROPERTY_SETS = ImmutableMap.<ResourceKey<RecipePropertySet>, RecipeManager.IngredientExtractor>builder().putAll(RECIPE_PROPERTY_SETS).put(ModRecipePropertySets.WATER_PURIFYING, recipe -> recipe instanceof WaterPurifierRecipe waterPurifierRecipe ? Optional.of(Ingredient.of(waterPurifierRecipe.input().getItem())) : Optional.empty()).build();
+        //RECIPE_PROPERTY_SETS = ImmutableMap.<ResourceKey<RecipePropertySet>, RecipeManager.IngredientExtractor>builder().putAll(RECIPE_PROPERTY_SETS).put(ModRecipePropertySets.WATER_PURIFYING, recipe -> recipe instanceof WaterPurifierRecipe waterPurifierRecipe ? Optional.of(Ingredient.of(waterPurifierRecipe.input().getItem())) : Optional.empty()).build();
     }
 }

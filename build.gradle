@@ -1,36 +1,25 @@
 buildscript {
     repositories {
         gradlePluginPortal()
-        maven {
-            name = "Forge"
-            url = "https://maven.minecraftforge.net"
-        }
     }
     dependencies {
         classpath 'com.modrinth.minotaur:Minotaur:2.+'
         classpath 'gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:1.1.7' // Required for NeoGradle
-        classpath 'net.minecraftforge:gradleutils:2.2.0' // Required for changelog generation
     }
 }
 
 apply plugin: 'org.jetbrains.gradle.plugin.idea-ext'
-apply plugin: 'net.minecraftforge.gradleutils'
 
 changelog {
     fromTag '9.2.0'
 }
 
 ext {
-    mod_version = gradleutils.getTagOffsetVersion()
+    mod_version = "1.0.0" // Replace with actual version logic if needed
     changelog_file = rootProject.file("build/changelog.txt")
-    trimChangelog = (String text) -> {
-        def m = text =~ /(?s) - (?:[0-9.]+) (.+?)(?=( - )|$)/
-        return '```\n' + m[0][1].replaceAll(/(?m)^ */, '')
-    }
 }
 
 allprojects {
-    // Allow 400 errors.
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xmaxerrs" << "400"
@@ -75,10 +64,6 @@ subprojects {
             name = 'Sponge / Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
-        maven {
-            name = 'Forge'
-            url = "https://maven.minecraftforge.net"
-        }
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -89,7 +74,6 @@ subprojects {
     processResources {
         var expandProps = [
             minecraft_version   : minecraft_version,
-            forge_version       : forge_version, forge_version_range: forge_version_range, forge_loader_version_range: forge_loader_version_range,
             neoforge_version    : neoforge_version, neoforge_version_range: neoforge_version_range, neoforge_loader_version_range: neoforge_loader_version_range,
             glitchcore_version  : glitchcore_version, serene_seasons_version: serene_seasons_version,
             mod_id              : mod_id, mod_name: mod_name, mod_display_name: mod_display_name, mod_version: mod_version,
@@ -105,17 +89,11 @@ subprojects {
         inputs.properties(expandProps)
     }
 
-    // Disables Gradle's custom module metadata from being published to maven. The
-    // metadata includes mapped dependencies which are not reasonably consumable by
-    // other mod developers.
     tasks.withType(GenerateModuleMetadata) {
         enabled = false
     }
 
     afterEvaluate {
-        // Share Modrinth configuration between loaders
-        // Unfortunately the CurseForge plugin breaks when doing this
-        // remapJar does not exist until after initial evaluation
         if (!name.equals("Common")) {
             modrinth {
                 token = findProperty('modrinthToken')
@@ -134,12 +112,11 @@ subprojects {
                 }
 
                 if (changelog_file.exists()) {
-                    changelog = trimChangelog(changelog_file.text)
+                    changelog = changelog_file.text
                 }
             }
         }
 
-        // archivesBaseName is not set until after initial evaluation
         publishing {
             publications {
                 mavenJava(MavenPublication) {
@@ -176,36 +153,6 @@ subprojects {
                                 name = 'Forstride'
                             }
                         }
-                        withXml {
-                            NodeList dependencies = asNode().dependencies
-                            NodeList allDeps = dependencies.'*'
-
-                            // Remove forge deps
-                            allDeps.<Node> findAll() { Node el ->
-                                el.artifactId.text() == 'forge' && el.groupId.text() == 'net.minecraftforge'
-                            }.forEach() { Node el ->
-                                el.parent().remove(el)
-                            }
-                            // Remove ForgeGradle's mapped suffix from versions & set as optional so anyone else doesn't inherit them
-                            allDeps.<Node> findAll() { Node el ->
-                                el.version.text().contains('_mapped_')
-                            }.each { Node el ->
-                                el.version.each { Node version ->
-                                    def versionText = version.text()
-                                    version.setValue(versionText.substring(0, versionText.indexOf('_mapped_')))
-                                }
-                                el.appendNode('optional', true)
-                            }
-                        }
-                    }
-                }
-            }
-            repositories {
-                maven {
-                    url = "https://maven.minecraftforge.net/releases/"
-                    credentials {
-                        username = System.getenv("MAVEN_USER")
-                        password = System.getenv("MAVEN_PASSWORD")
                     }
                 }
             }

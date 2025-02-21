@@ -25,7 +25,7 @@ import toughasnails.api.player.ITANPlayer;
 import toughasnails.api.potion.TANEffects;
 import toughasnails.api.temperature.*;
 import toughasnails.api.temperature.IProximityBlockModifier.Type;
-import toughasnails.block.entity.ThermoregulatorBlockEntity;
+//import toughasnails.block.entity.ThermoregulatorBlockEntity;
 import toughasnails.init.ModConfig;
 import toughasnails.init.ModTags;
 
@@ -365,20 +365,20 @@ public class TemperatureHelperImpl implements TemperatureHelper.Impl.ITemperatur
         int heatingCount = 0;
         int neutralCount = 0;
 
-        for (BlockPos pos : thermoregulators)
-        {
-            ThermoregulatorBlockEntity blockEntity = (ThermoregulatorBlockEntity)level.getBlockEntity(pos);
+        // for (BlockPos pos : thermoregulators)
+        // {
+        //     ThermoregulatorBlockEntity blockEntity = (ThermoregulatorBlockEntity)level.getBlockEntity(pos);
 
-            if (blockEntity == null)
-                continue;
+        //     if (blockEntity == null)
+        //         continue;
 
-            switch (blockEntity.getEffectAtPos(checkPos))
-            {
-                case COOLING -> ++coolingCount;
-                case HEATING -> ++heatingCount;
-                case NEUTRALIZING -> ++neutralCount;
-            }
-        }
+        //     switch (blockEntity.getEffectAtPos(checkPos))
+        //     {
+        //         case COOLING -> ++coolingCount;
+        //         case HEATING -> ++heatingCount;
+        //         case NEUTRALIZING -> ++neutralCount;
+        //     }
+        // }
 
         if (coolingCount == 0 && heatingCount == 0 && neutralCount > 0) return TemperatureLevel.NEUTRAL;
         else if (coolingCount > heatingCount) return current.decrement(2);

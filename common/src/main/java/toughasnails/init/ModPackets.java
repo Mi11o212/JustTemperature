@@ -9,9 +9,9 @@ import glitchcore.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import toughasnails.api.TANAPI;
 import toughasnails.core.ToughAsNails;
-import toughasnails.network.DrinkInWorldPacket;
+//import toughasnails.network.DrinkInWorldPacket;
 import toughasnails.network.UpdateTemperaturePacket;
-import toughasnails.network.UpdateThirstPacket;
+//import toughasnails.network.UpdateThirstPacket;
 
 public class ModPackets
 {
@@ -20,8 +20,8 @@ public class ModPackets
     public static void init()
     {
         register("update_temperature", new UpdateTemperaturePacket());
-        register("update_thirst", new UpdateThirstPacket());
-        register("drink_in_world", new DrinkInWorldPacket());
+        // register("update_thirst", new UpdateThirstPacket());
+        // register("drink_in_world", new DrinkInWorldPacket());
     }
 
     public static void register(String name, CustomPacket<?> packet)

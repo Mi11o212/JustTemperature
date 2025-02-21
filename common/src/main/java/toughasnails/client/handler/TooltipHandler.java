@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import toughasnails.init.ModConfig;
 import toughasnails.init.ModTags;
-import toughasnails.thirst.ThirstOverlayRenderer;
+//import toughasnails.thirst.ThirstOverlayRenderer;
 
 import java.util.Optional;
 
@@ -32,9 +32,9 @@ public class TooltipHandler
 {
     public static void onTooltip(ItemTooltipEvent event)
     {
-        // Don't display heating or cooling tooltips if temperature is disabled
-        if (!ModConfig.temperature.enableTemperature)
-            return;
+        // // Don't display heating or cooling tooltips if temperature is disabled
+        // if (!ModConfig.temperature.enableTemperature)
+        //     return;
 
         if (!Environment.isClient())
             throw new IllegalStateException("ItemTooltipEvent unexpectedly called on the server");
@@ -46,16 +46,13 @@ public class TooltipHandler
         ItemStack stack = event.getStack();
         Block block = Block.byItem(stack.getItem());
         BlockState state = block.defaultBlockState();
-        RegistryAccess registryAccess = Minecraft.getInstance().getConnection().registryAccess();
 
-        Optional<Holder.Reference<TrimMaterial>> trimMaterial = TrimMaterials.getFromIngredient(registryAccess, stack);
-
-        // Heating/Cooling Blocks and Armor/Trimmed Armor
-        if (state.is(ModTags.Blocks.HEATING_BLOCKS) || stack.is(ModTags.Items.HEATING_ARMOR) || (trimMaterial.isPresent() && trimMaterial.get().is(ModTags.Trims.HEATING_TRIMS)))
+        // Heating/Cooling Blocks and Armor
+        if (state.is(ModTags.Blocks.HEATING_BLOCKS) || stack.is(ModTags.Items.HEATING_ARMOR))
         {
             event.getTooltip().add(Component.literal("\uD83D\uDD25 ").append(Component.translatable("desc.toughasnails.heating")).withStyle(ChatFormatting.GOLD));
         }
-        if (state.is(ModTags.Blocks.COOLING_BLOCKS) || stack.is(ModTags.Items.COOLING_ARMOR) || (trimMaterial.isPresent() && trimMaterial.get().is(ModTags.Trims.COOLING_TRIMS)))
+        if (state.is(ModTags.Blocks.COOLING_BLOCKS) || stack.is(ModTags.Items.COOLING_ARMOR))
         {
             event.getTooltip().add(Component.literal("\u2744 ").append(Component.translatable("desc.toughasnails.cooling")).withStyle(ChatFormatting.AQUA));
         }
@@ -78,79 +75,6 @@ public class TooltipHandler
         if (stack.is(ModTags.Items.COOLING_CONSUMED_ITEMS))
         {
             event.getTooltip().add(Component.literal("\u2744 ").append(Component.translatable("desc.toughasnails.cooling_consumed")).withStyle(ChatFormatting.AQUA));
-        }
-
-        // Heating/Cooling Trim Material Items
-        if (trimMaterial.isPresent() && trimMaterial.get().is(ModTags.Trims.HEATING_TRIMS))
-        {
-            event.getTooltip().add(Component.literal("\uD83D\uDD25 ").append(Component.translatable("desc.toughasnails.heating_trim")).withStyle(ChatFormatting.GOLD));
-        }
-        if (trimMaterial.isPresent() && trimMaterial.get().is(ModTags.Trims.COOLING_TRIMS))
-        {
-            event.getTooltip().add(Component.literal("\u2744 ").append(Component.translatable("desc.toughasnails.cooling_trim")).withStyle(ChatFormatting.AQUA));
-        }
-    }
-
-    public static void onRenderTooltip(RenderTooltipEvent event)
-    {
-        ItemStack stack = event.getStack();
-
-        // Don't display thirst tooltips if thirst is disabled
-        if (!ModConfig.thirst.enableThirst)
-            return;
-
-        if (stack.is(ModTags.Items.DRINKS))
-        {
-            event.getComponents().add(new ThirstClientTooltipComponent(ModTags.Items.getThirstRestored(stack)));
-        }
-    }
-
-    private static class ThirstClientTooltipComponent implements ClientTooltipComponent
-    {
-        private final int amount;
-
-        private ThirstClientTooltipComponent(int amount)
-        {
-            this.amount = amount;
-        }
-
-        @Override
-        public int getHeight(Font font)
-        {
-            return 9;
-        }
-
-        @Override
-        public int getWidth(Font font)
-        {
-            return (this.amount / 2) * 8;
-        }
-
-        @Override
-        public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics gui)
-        {
-            gui.pose().pushPose();
-
-            for (int i = 0; i < Mth.ceil(this.amount / 2.0F); i++)
-            {
-                int dropletHalf = i * 2 + 1;
-
-                int startX = x + i * 8;
-                int startY = y;
-
-                // Args: poseStack, x, y, u, v, width, height, texWidth, texHeight
-                // Draw a full droplet
-                if (this.amount > dropletHalf)
-                {
-                    gui.blit(RenderType::guiTextured, ThirstOverlayRenderer.OVERLAY, startX, startY, 0, 41, 8, 8, 256, 256);
-                }
-                else if (this.amount == dropletHalf) // Draw a half droplet
-                {
-                    gui.blit(RenderType::guiTextured, ThirstOverlayRenderer.OVERLAY, startX, startY, 8, 41, 8, 8, 256, 256);
-                }
-            }
-
-            gui.pose().popPose();
         }
     }
 }

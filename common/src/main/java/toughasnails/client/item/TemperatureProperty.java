@@ -11,21 +11,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import toughasnails.api.temperature.TemperatureHelper;
 import toughasnails.api.temperature.TemperatureLevel;
-import toughasnails.temperature.TemperatureHelperImpl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class TemperatureProperty implements RangeSelectItemModelProperty
 {
@@ -78,12 +73,7 @@ public class TemperatureProperty implements RangeSelectItemModelProperty
 
     private static TemperatureLevel getTemperatureForThermometer(Level level, Entity holder)
     {
-        TemperatureLevel temperatureLevel = TemperatureHelper.getTemperatureAtPos(level, holder.blockPosition());
-
-        // Use the player to acquire nearby thermoregulators, even if they aren't holding the thermometer
-        Player player = Minecraft.getInstance().player;
-        Set<BlockPos> nearbyThermoregulators = TemperatureHelper.getTemperatureData(player).getNearbyThermoregulators();
-        return TemperatureHelperImpl.modifyTemperatureByThermoregulators(level, nearbyThermoregulators, holder.blockPosition(), temperatureLevel);
+        return TemperatureHelper.getTemperatureAtPos(level, holder.blockPosition());
     }
 
     private static class Delta
@@ -123,7 +113,7 @@ public class TemperatureProperty implements RangeSelectItemModelProperty
 
             // Diminish the rota over time. The clock uses 0.9, but we want slightly less wobbling
             this.rota *= 0.87;
-            this.currentValue = Mth.clamp(this.currentValue + this.rota, 0.0, 1.0);
+            this.currentValue = Math.clamp(this.currentValue + this.rota, 0.0, 1.0);
         }
 
         public float getValue()

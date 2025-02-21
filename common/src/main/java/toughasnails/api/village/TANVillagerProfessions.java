@@ -1,12 +1,12 @@
-/*******************************************************************************
- * Copyright 2024, the Glitchfiend Team.
- * All rights reserved.
- ******************************************************************************/
-package toughasnails.api.village;
+// /*******************************************************************************
+//  * Copyright 2024, the Glitchfiend Team.
+//  * All rights reserved.
+//  ******************************************************************************/
+// package toughasnails.api.village;
 
-import net.minecraft.world.entity.npc.VillagerProfession;
+// import net.minecraft.world.entity.npc.VillagerProfession;
 
-public class TANVillagerProfessions
-{
-    public static VillagerProfession CLIMATOLOGIST;
-}
+// public class TANVillagerProfessions
+// {
+//     public static VillagerProfession CLIMATOLOGIST;
+// }

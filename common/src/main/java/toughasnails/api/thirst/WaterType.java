@@ -1,22 +1,22 @@
-/*******************************************************************************
- * Copyright 2021, the Glitchfiend Team.
- * All rights reserved.
- ******************************************************************************/
-package toughasnails.api.thirst;
+// /*******************************************************************************
+//  * Copyright 2021, the Glitchfiend Team.
+//  * All rights reserved.
+//  ******************************************************************************/
+// package toughasnails.api.thirst;
 
-public enum WaterType
-{
-    NORMAL(0.5F), DIRTY(1.0F), PURIFIED(0.0F);
+// public enum WaterType
+// {
+//     NORMAL(0.5F), DIRTY(1.0F), PURIFIED(0.0F);
 
-    private float poisonChance;
+//     private float poisonChance;
 
-    WaterType(float poisonChance)
-    {
-        this.poisonChance = poisonChance;
-    }
+//     WaterType(float poisonChance)
+//     {
+//         this.poisonChance = poisonChance;
+//     }
 
-    public float getPoisonChance()
-    {
-        return this.poisonChance;
-    }
-}
+//     public float getPoisonChance()
+//     {
+//         return this.poisonChance;
+//     }
+// }

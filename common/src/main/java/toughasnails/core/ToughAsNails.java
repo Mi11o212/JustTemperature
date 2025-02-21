@@ -1,7 +1,3 @@
-/*******************************************************************************
- * Copyright 2023, the Glitchfiend Team.
- * All rights reserved.
- ******************************************************************************/
 package toughasnails.core;
 
 import glitchcore.event.EventManager;
@@ -13,14 +9,10 @@ import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import toughasnails.api.TANAPI;
-import toughasnails.client.handler.KeyHandler;
-import toughasnails.client.handler.LevelRenderHandler;
 import toughasnails.client.handler.TooltipHandler;
 import toughasnails.init.*;
 import toughasnails.temperature.TemperatureHandler;
 import toughasnails.temperature.TemperatureOverlayRenderer;
-import toughasnails.thirst.ThirstHandler;
-import toughasnails.thirst.ThirstOverlayRenderer;
 
 public class ToughAsNails
 {
@@ -45,7 +37,7 @@ public class ToughAsNails
 
     public static void onServerAboutToStart(MinecraftServer server)
     {
-        ModVillages.addBuildings(server.registryAccess());
+        //ModVillages.addBuildings(server.registryAccess());
     }
 
     private static void addRegistrars()
@@ -62,8 +54,8 @@ public class ToughAsNails
         regHelper.addRegistrar(Registries.POTION, ModPotions::registerPotions);
         regHelper.addRegistrar(Registries.CREATIVE_MODE_TAB, ModCreativeTab::registerCreativeTabs);
         regHelper.addRegistrar(Registries.PARTICLE_TYPE, ModParticles::registerParticles);
-        regHelper.addRegistrar(Registries.POINT_OF_INTEREST_TYPE, ModVillages::registerPointsOfInterest);
-        regHelper.addRegistrar(Registries.VILLAGER_PROFESSION, ModVillages::registerProfessions);
+        // regHelper.addRegistrar(Registries.POINT_OF_INTEREST_TYPE, ModVillages::registerPointsOfInterest);
+        // regHelper.addRegistrar(Registries.VILLAGER_PROFESSION, ModVillages::registerProfessions);
     }
 
     private static void addHandlers()
@@ -71,16 +63,10 @@ public class ToughAsNails
         // Temperature handlers
         EventManager.addListener(TemperatureHandler::onChangeDimension);
         EventManager.addListener(TemperatureHandler::onItemUseFinish);
-
-        // Thirst handlers
-        EventManager.addListener(ThirstHandler::onChangeDimension);
-        EventManager.addListener(ThirstHandler::onItemUseFinish);
-        EventManager.addListener(ThirstHandler::onPlayerUseItem);
-        EventManager.addListener(ThirstHandler::onUseBlock);
-
+        
         // Misc handlers
-        EventManager.addListener(ModVillages::addVillagerTrades);
-        EventManager.addListener(ModVillages::addWanderingVillagerTrades);
+        // EventManager.addListener(ModVillages::addVillagerTrades);
+        // EventManager.addListener(ModVillages::addWanderingVillagerTrades);
 
         if (Environment.isClient())
         {
@@ -94,13 +80,6 @@ public class ToughAsNails
         EventManager.addListener(TemperatureOverlayRenderer::onClientTick);
         EventManager.addListener(TemperatureOverlayRenderer::onBeginRenderFood);
         EventManager.addListener(TemperatureOverlayRenderer::onBeginRenderFrostbite);
-        EventManager.addListener(LevelRenderHandler::onLevelRender);
-
-        // Thirst
-        EventManager.addListener(ThirstOverlayRenderer::onClientTick);
-        EventManager.addListener(ThirstOverlayRenderer::onBeginRenderAir);
-        EventManager.addListener(ThirstHandler::onUseEmpty);
-        EventManager.addListener(ThirstHandler::onClientTick);
 
         // Coloring
         EventManager.addListener(ModClient::registerBlockColors);
@@ -110,9 +89,5 @@ public class ToughAsNails
 
         // Tooltips
         EventManager.addListener(TooltipHandler::onTooltip);
-        EventManager.addListener(TooltipHandler::onRenderTooltip);
-
-        // Debug
-        EventManager.addListener(KeyHandler::onKeyPress);
     }
 }

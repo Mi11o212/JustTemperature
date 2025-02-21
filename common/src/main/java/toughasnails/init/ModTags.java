@@ -10,7 +10,7 @@ import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import toughasnails.api.TANAPI;
-import toughasnails.api.thirst.WaterType;
+//import toughasnails.api.thirst.WaterType;
 import toughasnails.core.ToughAsNails;
 
 public class ModTags
@@ -130,23 +130,23 @@ public class ModTags
         public static final TagKey<Biome> NEUTRAL_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "neutral_biomes"));
         public static final TagKey<Biome> WARM_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "warm_biomes"));
         public static final TagKey<Biome> HOT_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "hot_biomes"));
-        public static final TagKey<Biome> DIRTY_WATER_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "dirty_water_biomes"));
-        public static final TagKey<Biome> PURIFIED_WATER_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "purified_water_biomes"));
+        //public static final TagKey<Biome> DIRTY_WATER_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "dirty_water_biomes"));
+        //public static final TagKey<Biome> PURIFIED_WATER_BIOMES = create(ResourceLocation.fromNamespaceAndPath(TANAPI.MOD_ID, "purified_water_biomes"));
 
         private static TagKey<Biome> create(ResourceLocation loc)
         {
             return TagKey.create(Registries.BIOME, loc);
         }
 
-        public static WaterType getBiomeWaterType(Holder<Biome> biome)
-        {
-            if (biome.is(DIRTY_WATER_BIOMES))
-                return WaterType.DIRTY;
-            else if (biome.is(PURIFIED_WATER_BIOMES))
-                return WaterType.PURIFIED;
-            else
-                return WaterType.NORMAL;
-        }
+        // public static WaterType getBiomeWaterType(Holder<Biome> biome)
+        // {
+        //     if (biome.is(DIRTY_WATER_BIOMES))
+        //         return WaterType.DIRTY;
+        //     else if (biome.is(PURIFIED_WATER_BIOMES))
+        //         return WaterType.PURIFIED;
+        //     else
+        //         return WaterType.NORMAL;
+        // }
     }
 
     public static class Trims

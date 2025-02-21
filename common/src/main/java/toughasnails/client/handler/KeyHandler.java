@@ -17,7 +17,7 @@ public class KeyHandler
     public static void onKeyPress(InputEvent.Key event)
     {
         Minecraft minecraft = Minecraft.getInstance();
-        boolean isF3Down = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), InputConstants.KEY_F3);
+        boolean isF3Down = InputConstants.isKeyDown(minecraft.getWindow().getWindow(), InputConstants.KEY_F3);
 
         if (minecraft.screen == null && event.getAction() != InputConstants.RELEASE && isF3Down)
         {
@@ -30,7 +30,7 @@ public class KeyHandler
 
                     if (LevelRenderHandler.enableDebug) debugFeedbackTranslated("debug.temperature_fill.on");
                     else debugFeedbackTranslated("debug.temperature_fill.off");
-                    
+
                     handledDebugKey = true;
                 }
                 case InputConstants.KEY_Q -> {
@@ -44,7 +44,6 @@ public class KeyHandler
         }
     }
 
-
     private static void debugComponent(ChatFormatting formatting, Component component) {
         Minecraft.getInstance()
             .gui
@@ -57,11 +56,11 @@ public class KeyHandler
             );
     }
 
-    private static void debugFeedbackComponent(Component $$0) {
-        debugComponent(ChatFormatting.YELLOW, $$0);
+    private static void debugFeedbackComponent(Component message) {
+        debugComponent(ChatFormatting.YELLOW, message);
     }
 
-    private static void debugFeedbackTranslated(String $$0, Object... $$1) {
-        debugFeedbackComponent(Component.translatableEscape($$0, $$1));
+    private static void debugFeedbackTranslated(String key, Object... args) {
+        debugFeedbackComponent(Component.translatableEscape(key, args));
     }
 }

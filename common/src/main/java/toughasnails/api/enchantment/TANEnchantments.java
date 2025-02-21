@@ -13,7 +13,6 @@ import toughasnails.core.ToughAsNails;
 public class TANEnchantments
 {
     public static ResourceKey<Enchantment> THERMAL_TUNING = key("thermal_tuning");
-    public static ResourceKey<Enchantment> WATER_CLEANSING = key("water_cleansing");
 
     private static ResourceKey<Enchantment> key(String name)
     {

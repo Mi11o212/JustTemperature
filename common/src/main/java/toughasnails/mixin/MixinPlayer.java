@@ -25,12 +25,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import toughasnails.api.item.TANItems;
 import toughasnails.api.player.ITANPlayer;
 import toughasnails.api.temperature.ITemperature;
-import toughasnails.api.thirst.IThirst;
+//import toughasnails.api.thirst.IThirst;
 import toughasnails.temperature.TemperatureData;
 import toughasnails.temperature.TemperatureHandler;
-import toughasnails.thirst.ThirstData;
-import toughasnails.thirst.ThirstHandler;
-import toughasnails.thirst.ThirstHooks;
+// import toughasnails.thirst.ThirstData;
+// import toughasnails.thirst.ThirstHandler;
+// import toughasnails.thirst.ThirstHooks;
 
 @Mixin(Player.class)
 public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
@@ -41,8 +41,8 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
 
     @Unique
     private TemperatureData temperatureData = new TemperatureData();
-    @Unique
-    private ThirstData thirstData = new ThirstData();
+    // @Unique
+    // private ThirstData thirstData = new ThirstData();
     @Unique
     private boolean climateClemencyGranted = false;
 
@@ -56,7 +56,7 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
     public void onReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci)
     {
         this.temperatureData.readAdditionalSaveData(nbt);
-        this.thirstData.readAdditionalSaveData(nbt);
+        //this.thirstData.readAdditionalSaveData(nbt);
         this.climateClemencyGranted = nbt.getBoolean("climateClemencyGranted");
     }
 
@@ -64,28 +64,28 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
     public void onAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci)
     {
         this.temperatureData.addAdditionalSaveData(nbt);
-        this.thirstData.addAdditionalSaveData(nbt);
+        //this.thirstData.addAdditionalSaveData(nbt);
         nbt.putBoolean("climateClemencyGranted", this.climateClemencyGranted);
     }
 
-    @Inject(method="causeFoodExhaustion", at=@At(value="HEAD"))
-    public void onCauseFoodExhaustion(float exhaustion, CallbackInfo ci)
-    {
-        if (!this.abilities.invulnerable)
-        {
-            if (!this.level().isClientSide)
-            {
-                ThirstHooks.onCauseFoodExhaustion((Player)(Object)this, exhaustion);
-            }
-        }
-    }
+    // @Inject(method="causeFoodExhaustion", at=@At(value="HEAD"))
+    // public void onCauseFoodExhaustion(float exhaustion, CallbackInfo ci)
+    // {
+    //     if (!this.abilities.invulnerable)
+    //     {
+    //         if (!this.level().isClientSide)
+    //         {
+    //             ThirstHooks.onCauseFoodExhaustion((Player)(Object)this, exhaustion);
+    //         }
+    //     }
+    // }
 
     @Inject(method="tick", at=@At(value="TAIL"))
     public void onTick(CallbackInfo ci)
     {
         Player player = (Player)(Object)this;
         TemperatureHandler.onPlayerTick(player);
-        ThirstHandler.onPlayerTick(player);
+        //ThirstHandler.onPlayerTick(player);
     }
 
     @Override
@@ -94,11 +94,11 @@ public abstract class MixinPlayer extends LivingEntity implements ITANPlayer
         return this.temperatureData;
     }
 
-    @Override
-    public IThirst getThirstData()
-    {
-        return this.thirstData;
-    }
+    //@Override
+    // public IThirst getThirstData()
+    // {
+    //     return this.thirstData;
+    // }
 
     @Override
     public boolean getClimateClemencyGranted()

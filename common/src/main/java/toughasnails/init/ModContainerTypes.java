@@ -12,10 +12,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import toughasnails.api.TANAPI;
 import toughasnails.api.container.TANContainerTypes;
-import toughasnails.client.gui.ThermoregulatorScreen;
-import toughasnails.client.gui.WaterPurifierScreen;
-import toughasnails.container.ThermoregulatorContainer;
-import toughasnails.container.WaterPurifierMenu;
+//import toughasnails.client.gui.ThermoregulatorScreen;
+//import toughasnails.client.gui.WaterPurifierScreen;
+//import toughasnails.container.ThermoregulatorContainer;
+//import toughasnails.container.WaterPurifierMenu;
 
 import java.util.function.BiConsumer;
 
@@ -23,13 +23,13 @@ public class ModContainerTypes
 {
     public static void registerContainers(BiConsumer<ResourceLocation, MenuType<?>> func)
     {
-        TANContainerTypes.WATER_PURIFIER = register(func, "water_purifier", WaterPurifierMenu::new);
-        TANContainerTypes.THERMOREGULATOR = register(func, "thermoregulator", ThermoregulatorContainer::new);
+        //TANContainerTypes.WATER_PURIFIER = register(func, "water_purifier", WaterPurifierMenu::new);
+        //TANContainerTypes.THERMOREGULATOR = register(func, "thermoregulator", ThermoregulatorContainer::new);
 
         if (Environment.isClient())
         {
-            MenuScreens.register((MenuType<WaterPurifierMenu>) TANContainerTypes.WATER_PURIFIER, WaterPurifierScreen::new);
-            MenuScreens.register((MenuType<ThermoregulatorContainer>) TANContainerTypes.THERMOREGULATOR, ThermoregulatorScreen::new);
+            //MenuScreens.register((MenuType<WaterPurifierMenu>) TANContainerTypes.WATER_PURIFIER, WaterPurifierScreen::new);
+            //MenuScreens.register((MenuType<ThermoregulatorContainer>) TANContainerTypes.THERMOREGULATOR, ThermoregulatorScreen::new);
         }
     }
 

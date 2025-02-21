@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import toughasnails.api.TANAPI;
 import toughasnails.api.block.TANBlocks;
-import toughasnails.block.RainCollectorBlock;
+//import toughasnails.block.RainCollectorBlock;
 import toughasnails.block.TemperatureGaugeBlock;
-import toughasnails.block.ThermoregulatorBlock;
-import toughasnails.block.WaterPurifierBlock;
+//import toughasnails.block.ThermoregulatorBlock;
+//import toughasnails.block.WaterPurifierBlock;
 import toughasnails.core.ToughAsNails;
 
 import java.util.function.BiConsumer;
@@ -28,10 +28,10 @@ public class ModBlocks
 {
     public static void registerBlocks(BiConsumer<ResourceLocation, Block> func)
     {
-        TANBlocks.THERMOREGULATOR = register(func, "thermoregulator", ThermoregulatorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5F).lightLevel(ThermoregulatorBlock.lightLevel(6)));
+        //TANBlocks.THERMOREGULATOR = register(func, "thermoregulator", ThermoregulatorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5F).lightLevel(ThermoregulatorBlock.lightLevel(6)));
         TANBlocks.TEMPERATURE_GAUGE = register(func, "temperature_gauge", TemperatureGaugeBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(1.0F));
-        TANBlocks.RAIN_COLLECTOR = register(func, "rain_collector", RainCollectorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).noOcclusion());
-        TANBlocks.WATER_PURIFIER = register(func, "water_purifier", WaterPurifierBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD).noOcclusion());
+        //TANBlocks.RAIN_COLLECTOR = register(func, "rain_collector", RainCollectorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).noOcclusion());
+        //TANBlocks.WATER_PURIFIER = register(func, "water_purifier", WaterPurifierBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD).noOcclusion());
     }
 
     private static Block register(BiConsumer<ResourceLocation, Block> func, ResourceKey<Block> key, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties)
